@@ -8,7 +8,7 @@ from PySide6 import QtCore, QtWidgets, QtGui, QtWebEngineWidgets
 import sys
 from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import QLabel
-from CHOICEassistance.Curyassistant.speaker import Curie
+from CHOICEassistance.Curie.Curyassistant.speaker import Curie
 
 global PRList
 PRList = [None, None]
