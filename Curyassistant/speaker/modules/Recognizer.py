@@ -6,7 +6,7 @@ import sys
 import sounddevice as sd
 import queue
 
-from CHOICEassistance.Curyassistant.speaker.modules.Speaker import Speaker
+from CHOICEassistance.Curie.Curyassistant.speaker.modules.Speaker import Speaker
 
 
 class Recognizer:

@@ -1,6 +1,6 @@
 import asyncio
 import json
-from bot.apps.ownProjects.BookFinder.FinderWithGoogle import GetOurs
+from choice.bot.apps.ownProjects.BookFinder.FinderWithGoogle import GetOurs
 
 def Finder(authorName: str = None, BookName: str = None):
     a = GetOurs()

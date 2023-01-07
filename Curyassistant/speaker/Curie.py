@@ -5,16 +5,16 @@ import pyttsx3
 import wikipedia
 from pyqiwip2p.AioQiwip2p import requests
 
-from CHOICEassistance.Curyassistant.speaker.config import paths
+from CHOICEassistance.Curie.Curyassistant.speaker.config import paths
 
 import speech_recognition as sr
 import threading
 import subprocess
-from CHOICEassistance.Curyassistant.managment.Book import Finder
-import CHOICEassistance.Curyassistant.main as moss
+from CHOICEassistance.Curie.Curyassistant.managment.Book import Finder
+import CHOICEassistance.Curie.Curyassistant.main as moss
 import multiprocessing as mp
 from googletrans import Translator
-from bot.nlp.words import vectorize_func
+from choice.bot.nlp.words import vectorize_func
 
 global DictRes; global DictBook; global Dict; Dict = {'next': ''}
 
@@ -72,13 +72,17 @@ def Recognizer():
 def FullManagement():
     query = Recognizer()
 
-    if 'shut down laptop' in query.lower():
+    if 'shut down laptop' in query.lower() or ('restart' in query.lower() and 'laptop' in query.lower() and
+                                abs(query.lower().index("laptop") - query.lower().index("restart"))):
+
         speak('Are you sure that')
         while True:
             guessed = Recognizer()
             if guessed.lower() == 'yes':
-                speak("Ok I am going to shut down the PC")
-                os.system("shutdown /s /t 1")
+                if 'shut down' in query.lower(): (speak("Ok I am going to shut down the PC"),
+                    os.system("shutdown /s /t 1"))
+                elif 'restart' in query.lower(): (speak("Ok I am going to shut down the PC"),
+                    os.system("shutdown -t 0 -r -f"))
                 break
 
     if 'exit' in query or 'stop' in query:
