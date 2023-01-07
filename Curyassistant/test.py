@@ -3,11 +3,10 @@ import threading
 import time
 import random
 from multiprocessing import Process
-from typing import Optional, Union
 
 import wikipedia
 
-# from CHOICEassistance.Curyassistant.speaker.Curie import speak
+from CHOICEassistance.Curyassistant.speaker.Curie import speak
 
 
 # def alma():
@@ -105,7 +104,7 @@ import wikipedia
 
 import webbrowser
 
-# from bot.search.googleser import Googlesearch
+from bot.search.googleser import Googlesearch
 
 # contents = Googlesearch('Solo').googlesearch2()
 #
@@ -118,21 +117,21 @@ import webbrowser
 # webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(path))
 # webbrowser.get('chrome').open(url)
 
-# global Dol
-# Dol = {'source': [], 'iterator': []}
-#
-#
-# def os():
-#     elem = []
-#     for i in range(5):
-#         elem.append(i)
-#     return elem
-#
-# source = os(); iterator = iter(source)
-# Dol['source'] = source; Dol['iterator'] = iterator
-#
-# for _ in range(len(Dol['source'])):
-#     print(next(Dol['iterator']))
+global Dol
+Dol = {'source': [], 'iterator': []}
+
+
+def os():
+    elem = []
+    for i in range(5):
+        elem.append(i)
+    return elem
+
+source = os(); iterator = iter(source)
+Dol['source'] = source; Dol['iterator'] = iterator
+
+for _ in range(len(Dol['source'])):
+    print(next(Dol['iterator']))
 
 
 # Definition for singly-linked list.
@@ -191,76 +190,26 @@ import webbrowser
 # print(dict(enumerate(list('12'))))
 
 
-# def Text(method):
-#     def pox(*ags, **kwargs):
-#         while True:
-#             san = random.randint(1, 5)
-#             ep = method(san)
-#             if ep:
-#                 print(ep)
-#             else:
-#                 break
-#
-#
-#     return pox
-#
-# @Text
-# def write(san):
-#     print("Into", san)
-#     time.sleep(0.5)
-#     if san == 4:
-#         return False
-#     return san + 1
-#
-#
-# s = write()
-# class Dect(object):
-#     def __init__(self, sor, soh):
-#         self.sor = sor
-#         self.soh = soh
-#
-#     def __repr__(self):
-#         return '{sor=' + self.sor + ' soh=' + self.soh + '}'
-#
-#     def __str__(self):
-#         return '{sor=' + self.sor + ' soh=' + self.soh + '}'
-#
-# def Arma(alma: Optional[Dect], sakura: Union[Dect | str]):
-#     print(alma)
-#     print(sakura)
-#     pass
-#
-# des = Dect('kuks', 'suck')
-# Arma(alma=des, sakura=(des, 'time'))
+def Text(method):
+    def pox(*ags, **kwargs):
+        while True:
+            san = random.randint(1, 5)
+            ep = method(san)
+            if ep:
+                print(ep)
+            else:
+                break
 
-# def alma(xan, hope):
-#     xan += 2 + hope / 2
-#     return int(xan)
-#
-# numbers = [10, 15, 21, 33, 42, 55]
-# numbers2 = [10, 15, 21, 33, 42, 55]
-# mapped_numbers = list(map(sum, numbers, numbers2))
-# print(mapped_numbers)
 
-elem = [
-    {
-        'title': 'Alma',
-        'url': 'http://',
-        'desc': 'sweet'
-    },
-    {
-        'title': 'Olma',
-        'url': 'http://',
-        'desc': 'sweetD'
-    },
-    {
-        'title': 'alma',
-        'url': 'http://',
-        'desc': 'sweetDD'
-    }
-]
-def tool(iterator):
-    iterator['summary'] = f"{iterator['desc']} {iterator['url']}"; iterator.pop('desc', None)
-    return iterator
+    return pox
 
-DictFull = list(map(tool, elem)); print(DictFull)
+@Text
+def write(san):
+    print("Into", san)
+    time.sleep(0.5)
+    if san == 4:
+        return False
+    return san + 1
+
+
+s = write()

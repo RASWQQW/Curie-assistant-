@@ -1,26 +1,24 @@
 import os
 import webbrowser
-from typing import Optional
 
 import pyttsx3
 import wikipedia
 from pyqiwip2p.AioQiwip2p import requests
 
-from CHOICEassistance.Curie.Curyassistant.speaker.config import paths
-from choice.bot.search.googleser import Googlesearch
+from CHOICEassistance.Curyassistant.speaker.config import paths
+
 import speech_recognition as sr
 import threading
 import subprocess
-from CHOICEassistance.Curie.Curyassistant.managment.Book import Finder
-import CHOICEassistance.Curie.Curyassistant.main as moss
+from CHOICEassistance.Curyassistant.managment.Book import Finder
+import CHOICEassistance.Curyassistant.main as moss
 import multiprocessing as mp
 from googletrans import Translator
-from choice.bot.nlp.words import vectorize_func
-from functools import cache
+from bot.nlp.words import vectorize_func
 
 global DictRes; global DictBook; global Dict; Dict = {'next': ''}
 
-@cache
+
 def DictSet(Res: bool = False, Book: bool = False) -> bool:
     if Res:
         global DictRes; Dict['next'] = 'Wiki'
@@ -58,7 +56,6 @@ def speak(text):
     engine.say(text)
     engine.runAndWait()
 
-@cache
 def Recognizer():
     try:
         r = sr.Recognizer()
@@ -75,17 +72,13 @@ def Recognizer():
 def FullManagement():
     query = Recognizer()
 
-    if 'shut down laptop' in query.lower() or ('restart' in query.lower() and 'laptop' in query.lower() and
-                                abs(query.lower().index("laptop") - query.lower().index("restart"))):
-
+    if 'shut down laptop' in query.lower():
         speak('Are you sure that')
         while True:
             guessed = Recognizer()
             if guessed.lower() == 'yes':
-                if 'shut down' in query.lower(): (speak("Ok I am going to shut down the PC"),
-                    os.system("shutdown /s /t 1"))
-                elif 'restart' in query.lower(): (speak("Ok I am going to shut down the PC"),
-                    os.system("shutdown -t 0 -r -f"))
+                speak("Ok I am going to shut down the PC")
+                os.system("shutdown /s /t 1")
                 break
 
     if 'exit' in query or 'stop' in query:
@@ -101,7 +94,7 @@ def FullManagement():
             speak("Ok the work is gone so Telegram is starts")
 
         elif 'book' in query.lower():
-            source = query.split(); global BookName, Author
+            source = query.split()
             for i in range(len(source)):
                 try:
                     if source[i] in ['name', 'named', 'as', 'book']:
@@ -111,7 +104,7 @@ def FullManagement():
                         Author = source[i + 1] + " " + source[i + 2] if source[i + 2] else ''
                 except Exception as e: speak('You miss some words, please try to next time')
 
-            def BookManager(BookName, Author):
+            def BookManager():
                 try:
                     print("List:", BookName, Author)
                     slim = Finder(authorName=str(Author), BookName=str(BookName))
@@ -122,17 +115,10 @@ def FullManagement():
                     DictBook['iterator'] = iter(slim); DictBook['source'] = next(DictBook['iterator'])
                     speak("First one is " + DictBook['source']['title'])
                     Looper()
-                except Exception:
-                    speak("Something went wrong Do you wanna repeat request")
-                    @LooperGain
-                    def Waiter(recognisedText: Optional[str]):
-                        if 'yeas' in recognisedText or 'yeah' in recognisedText:
-                            BookManager(BookName, Author)
-                        elif 'no' in recognisedText or 'stop' in recognisedText:
-                            return False
+                except Exception: speak("Something went wrong")
 
             speak("ok I start to find it")
-            BookManager(BookName, Author)
+            BookManager()
 
         elif 'switch' in query.lower():
             print("OK")
@@ -176,8 +162,7 @@ def FullManagement():
                     else:
                         topic = vectorize_func(str(query))
                         if topic != 0:
-                            respond = str(Translator().translate(topic['send_message'], dest='en').text)
-                            print("replaying:", respond); speak(respond)
+                            speak(str(Translator().translate(topic['send_message'], dest='en').text))
                         else:
                             speak("I can't get it")
 
@@ -185,7 +170,7 @@ def LooperGain(method):
     def pox(*args, **kwargs):
         while True:
             rec = Recognizer()
-            elem = method(rec, *args, **kwargs)
+            elem = method(rec)
             if elem == False:
                 speak("Ok I brake")
                 break
@@ -236,34 +221,17 @@ def FlowBroker():
 def Spsourse(text):
     speak(text)
 
-@cache
 def IterForWiki(text: str = None):
     print(text); results = wikipedia.search(text, results=5); print(results)
-    global DicFull; DictFull = []
-    if not results:
-        for elems in results:
-            try:
-                DictFull.append({
-                    'title': elems,
-                    'sum': wikipedia.page(elems).summary}, )
+    DictFull = []
+    for elems in results:
+        try:
+            DictFull.append({
+                'title': elems,
+                'sum': wikipedia.page(elems).summary}, )
 
-                yield wikipedia.page(elems).summary
-            except Exception as e: print(repr(e)); yield "Error"
-    else:
-        speak(f"Wikipedia can not hold any info about {text} Do you want to search in google? "+
-              f"if yes say ok if not say no")
-
-        @LooperGain
-        def Looper(recognizing):
-            if 'ok' in recognizing.lower():
-                elem = Googlesearch(text).googlesearch2()
-                def tool(iterator):
-                    iterator['summary'] = f"{iterator['desc']} {iterator['url']}"; iterator.pop('desc', None)
-                    return iterator
-                global DictFull; DictFull = list(map(tool, elem))
-            elif 'no' in recognizing.lower():
-                return False
-
+            yield wikipedia.page(elems).summary
+        except Exception as e: print(repr(e)); yield "Error"
     DictRes['DictList'] = DictFull  # for ownership
 
 def main(killer: threading.Event = None):
