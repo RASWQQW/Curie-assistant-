@@ -1,0 +1,7 @@
+pyttsx3
+random
+requests
+time
+multiproccesing
+threading
+pyqiwip2p.AioQiwip2p

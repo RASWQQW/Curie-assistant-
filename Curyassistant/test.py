@@ -242,43 +242,118 @@ import webbrowser
 # mapped_numbers = list(map(sum, numbers, numbers2))
 # print(mapped_numbers)
 
-elem = [
-    {
-        'title': 'Alma',
-        'url': 'http://',
-        'desc': 'sweet'
-    },
-    {
-        'title': 'Olma',
-        'url': 'http://',
-        'desc': 'sweetD'
-    },
-    {
-        'title': 'alma',
-        'url': 'http://',
-        'desc': 'sweetDD'
-    }
-]
-def tool(iterator):
-    iterator['summary'] = f"{iterator['desc']} {iterator['url']}"; iterator.pop('desc', None)
-    return iterator
+# elem = [
+#     {
+#         'title': 'Alma',
+#         'url': 'http://',
+#         'desc': 'sweet'
+#     },
+#     {
+#         'title': 'Olma',
+#         'url': 'http://',
+#         'desc': 'sweetD'
+#     },
+#     {
+#         'title': 'alma',
+#         'url': 'http://',
+#         'desc': 'sweetDD'
+#     }
+# ]
+# def tool(iterator):
+#     iterator['summary'] = f"{iterator['desc']} {iterator['url']}"; iterator.pop('desc', None)
+#     return iterator
+#
+# DictFull = list(map(tool, elem)); print(DictFull)
+# class Dect(object):
+#     def __init__(self, sor, soh):
+#         self.sor = sor
+#         self.soh = soh
+#
+#     def __repr__(self):
+#         return '{sor=' + self.sor + ' soh=' + self.soh + '}'
+#
+#     def __str__(self):
+#         return '{sor=' + self.sor + ' soh=' + self.soh + '}'
+#
+# def Arma(alma: Optional[Dect], sakura: Union[Dect | str]):
+#     print(alma)
+#     print(sakura)
+#     pass
+#
+# des = Dect('kuks', 'suck')
+# Arma(alma=des, sakura=(des, 'time'))elem = [
+#     {
+#         'title': 'Alma',
+#         'url': 'http://',
+#         'desc': 'sweet'
+#     },
+#     {
+#         'title': 'Olma',
+#         'url': 'http://',
+#         'desc': 'sweetD'
+#     },
+#     {
+#         'title': 'alma',
+#         'url': 'http://',
+#         'desc': 'sweetDD'
+#     }
+# ]
+# def tool(iterator):
+#     iterator['summary'] = f"{iterator['desc']} {iterator['url']}"; iterator.pop('desc', None)
+#     return iterator
+#
+# DictFull = list(map(tool, elem)); print(DictFull)
+# class Dect(object):
+#     def __init__(self, sor, soh):
+#         self.sor = sor
+#         self.soh = soh
+#
+#     def __repr__(self):
+#         return '{sor=' + self.sor + ' soh=' + self.soh + '}'
+#
+#     def __str__(self):
+#         return '{sor=' + self.sor + ' soh=' + self.soh + '}'
+#
+# def Arma(alma: Optional[Dect], sakura: Union[Dect | str]):
+#     print(alma)
+#     print(sakura)
+#     pass
+#
+# des = Dect('kuks', 'suck')
+# Arma(alma=des, sakura=(des, 'time'))
 
-DictFull = list(map(tool, elem)); print(DictFull)
-class Dect(object):
-    def __init__(self, sor, soh):
-        self.sor = sor
-        self.soh = soh
+# import pickle
+# from mainQT import main
+#
+#
+#
+# class Alma(object):
+#     def __init__(self, sort1, sort2):
+#         self.socks = sort1 + sort2 + random.randint(1, 1000)
+#         self.cocks = None
+#
+#     def supposeer(self):
+#         return self.socks
+#
+#     def also(self):
+#         while True:
+#             time.sleep(2)
+#             print("TT", self.socks)
+#
+#     def __call__(self):
+#         return self.socks
+#
+# elem = Alma(12, 12)
+# print(elem.socks)
+# with open('Class.dictionary', 'wb') as CDCT:
+#     pickle.dump(elem, CDCT)
+#
+# with open('Class.dictionary', 'rb') as DCt:
+#     Class = pickle.load(DCt)
+#     Class.socks = 12
+#     print(Class.supposeer())
+#
+# elem.also()
 
-    def __repr__(self):
-        return '{sor=' + self.sor + ' soh=' + self.soh + '}'
 
-    def __str__(self):
-        return '{sor=' + self.sor + ' soh=' + self.soh + '}'
 
-def Arma(alma: Optional[Dect], sakura: Union[Dect | str]):
-    print(alma)
-    print(sakura)
-    pass
-
-des = Dect('kuks', 'suck')
-Arma(alma=des, sakura=(des, 'time'))

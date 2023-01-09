@@ -7,17 +7,18 @@ import wikipedia
 from pyqiwip2p.AioQiwip2p import requests
 
 from CHOICEassistance.Curie.Curyassistant.speaker.config import paths
+from CHOICEassistance.Curie.Curyassistant.tools.methods.methods import OpenOf
 from choice.bot.search.googleser import Googlesearch
-
+import typing
 import speech_recognition as sr
 import threading
 import subprocess
 from CHOICEassistance.Curie.Curyassistant.managment.Book import Finder
-import CHOICEassistance.Curie.Curyassistant.main as moss
 import multiprocessing as mp
 from googletrans import Translator
 from choice.bot.nlp.words import vectorize_func
 from functools import cache
+from CHOICEassistance.Curie.Curyassistant.speaker.modules.Collector.PPLEInfocatcher import ReachOut
 
 global DictRes; global DictBook; global Dict; Dict = {'next': ''}
 
@@ -52,32 +53,42 @@ wikipedia.set_lang('en')
 def speak(text):
     engine = pyttsx3.init('sapi5')
     engine.setProperty('rate', 190)
-    engine.setProperty('volume', 1.0)
+    engine.setProperty('volume', 2.0)
     voices = engine.getProperty('voices')
     engine.setProperty('voice', voices[1].id)
 
     engine.say(text)
     engine.runAndWait()
 
-@cache
+def Saver(one=False):
+    with open(f'{os.getcwd()}/speaker/files/2Key.txt', 'w') as e:
+        e.write('011' if one else '001')
+
 def Recognizer():
     try:
         r = sr.Recognizer()
         with sr.Microphone() as source:
-            print('Listening....')
+            print('Listening....'); mp.Process(target=Saver, args=(True, )).start()
             # r.pause_threshold = 1
-            audio = r.listen(source, timeout=7); print('Recognizing...')
+            audio = r.listen(source, timeout=7)
+            print('Recognizing...'); mp.Process(target=Saver, args=(False, )).start()
             query = r.recognize_google(audio); print(query)
             return query
-    except Exception:
+    except Exception as e:
+        mp.Process(target=Saver, args=(False,)).start()
         # speak("Sorry I can get it")
-        return ''
+        print(e)
+        return Recognizer()
 
 def FullManagement():
     query = Recognizer()
 
+    if 'at' in query.lower().split() or 'instagram' in query.lower().split():
+        index = (query.index('at') if query.index('at') is not None else query.index('instagram'))
+        ReachOut(query.split()[index + 1])
+
     if 'shut down laptop' in query.lower() or ('restart' in query.lower() and 'laptop' in query.lower() and
-                                abs(query.lower().index("laptop") - query.lower().index("restart"))):
+                                abs(query.lower().index("laptop") - query.lower().index("restart"))) == 1:
 
         speak('Are you sure that')
         while True:
@@ -192,13 +203,6 @@ def LooperGain(method):
                 break
     return pox
 
-
-def OpenOf():
-    url = DictBook['source']['url']
-    path = "C:\\Program Files\Google\Chrome\Application\chrome.exe"
-    webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(path))
-    webbrowser.get('chrome').open(url)
-
 def DownLoad():
     response = requests.get(DictBook['source']['url'])
     with open(f"CHOICEassistance/Curyassistance/management/"
@@ -208,21 +212,19 @@ def DownLoad():
 @LooperGain
 def Looper(elem):
     if 'open' in elem.lower():
-        OpenOf()
-    elif 'stop' in elem.lower():
-        Dict['next'] = ''
-        return False
+        OpenOf(link=DictBook['source']['url'])
 
-    elif 'install' in elem.lower():
+    if 'install' in elem.lower():
         Process(DownLoad)
 
-    elif 'install' in elem.lower() and 'stop' in elem.lower():
-        Process(DownLoad); OpenOf()
-
-    elif 'next' in elem.lower():
+    if 'next' in elem.lower():
         Book = next(DictBook['iterator']); DictBook['source'] = Book
-        speak(Book['title'])
-    else: return True
+        speak(DictBook['source']['title'])
+
+    if 'stop' in elem.lower():
+        Dict['next'] = ''
+        return False
+    return True
 
 def Process(method, *args):
     runner = mp.Process(target=method, args=args); runner.start()
@@ -237,11 +239,10 @@ def FlowBroker():
 def Spsourse(text):
     speak(text)
 
-@cache
 def IterForWiki(text: str = None):
     print(text); results = wikipedia.search(text, results=5); print(results)
     global DicFull; DictFull = []
-    if not results:
+    if results:
         for elems in results:
             try:
                 DictFull.append({
@@ -262,20 +263,22 @@ def IterForWiki(text: str = None):
                     iterator['summary'] = f"{iterator['desc']} {iterator['url']}"; iterator.pop('desc', None)
                     return iterator
                 global DictFull; DictFull = list(map(tool, elem))
+                return False
             elif 'no' in recognizing.lower():
                 return False
 
     DictRes['DictList'] = DictFull  # for ownership
 
-def main(killer: threading.Event = None):
-    speak("Hello user, I am a virtual assistant")
+def main(conn: Optional = None, killer: mp.Event = None):
+    speak("Hello user, I am a virtual assistant Curie")
     while True:
         FullManagement()
         print(threading.active_count())
         if killer:
             if killer.is_set():
-                speak("Bye Bye see you later Boss"); moss.MyWidget().TextEnv()
+                speak("Bye Bye see you later Boss")
                 break
+
 
 if __name__ == "__main__":
     main()
