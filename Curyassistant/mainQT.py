@@ -26,11 +26,9 @@ class MyWidget(QtWidgets.QWidget):
                 time.sleep(1)
                 with open(f'{self.Values()}2Key.txt', 'r') as f:
                     olm = f.read()
+                if olm == '011': self.textForListen.setText('Listening...')
+                if olm == '001': self.textForListen.setText("")
 
-                if olm == '011':
-                    self.textForListen.setText('Listening...')
-                if olm == '001':
-                    self.textForListen.setText("")
             except Exception as e:
                 print(e)
 
@@ -39,7 +37,6 @@ class MyWidget(QtWidgets.QWidget):
 
         self.path = os.getcwd() + '/speaker/files/'
         img = Image.open(f'{self.path}icon.ico'); img.resize((45, 45))
-
 
         self.label = QLabel('Image', self)
 

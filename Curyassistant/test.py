@@ -5,6 +5,7 @@ import random
 from multiprocessing import Process
 from typing import Optional, Union
 
+import requests
 import wikipedia
 
 # from CHOICEassistance.Curyassistant.speaker.Curie import speak
@@ -104,6 +105,8 @@ import wikipedia
 
 
 import webbrowser
+
+from browser_history.browsers import Chrome
 
 # from bot.search.googleser import Googlesearch
 
@@ -356,4 +359,52 @@ import webbrowser
 # elem.also()
 
 
+# class Solution:
+#     def lengthOfLongestSubstring(self, s: str) -> int:
+#         # Base Case
+#         if len(s) == 1: return 1
+#
+#         count, s_result = 0, ''
+#
+#         for i in s:
+#             if i not in s_result:
+#                 s_result += i
+#             else:
+#                 s_result = s_result[s_result.index(i) + 1:] + i
+#
+#             if len(s_result) >= count:
+#                 count = len(s_result)
+#
+#         return count
+#
+# print(Solution().lengthOfLongestSubstring('almasalpd'))
 
+
+# text = "aacabdkacaa"
+
+# class Solution(object):
+#     def longestPalindrome(self, s):
+#         fragment = ''
+#         if len(s) <= 1: return s
+#
+#         for elem in range(0, len(s)):
+#             if s[elem] in s[elem + 1:]:
+#                 san = s[elem + 1:].index(s[elem]) + 1; print('san', san)
+#                 Catchstring = s[elem:][0: san + 1]; print(Catchstring)
+#                 San = False
+#
+#                 for loo in range(1, len(Catchstring) - 1):
+#                     if not Catchstring[loo] in Catchstring[loo + 1:]:
+#                         San = True; print(San); break
+#
+#                 if not San:
+#                     if len(s[elem:][0: san + 1]) > len(fragment):
+#                         fragment = s[elem:][0: san + 1]
+#
+#         return fragment if fragment else s[0]
+#
+# print(Solution().longestPalindrome(text))
+
+elems = Chrome().fetch_history(sort=True, desc=False).histories
+for i in elems:
+    print(i[1])

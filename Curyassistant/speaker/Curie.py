@@ -5,12 +5,11 @@ from typing import Optional
 import pyttsx3
 import wikipedia
 from pyqiwip2p.AioQiwip2p import requests
-
+from Recognizer import _RecManaging
 from CHOICEassistance.Curie.Curyassistant.speaker.config import paths
 from CHOICEassistance.Curie.Curyassistant.tools.methods.methods import OpenOf
 from choice.bot.search.googleser import Googlesearch
 import typing
-import speech_recognition as sr
 import threading
 import subprocess
 from CHOICEassistance.Curie.Curyassistant.managment.Book import Finder
@@ -19,6 +18,7 @@ from googletrans import Translator
 from choice.bot.nlp.words import vectorize_func
 from functools import cache
 from CHOICEassistance.Curie.Curyassistant.speaker.modules.Collector.PPLEInfocatcher import ReachOut
+from browser_history.browsers import Chrome
 
 global DictRes; global DictBook; global Dict; Dict = {'next': ''}
 
@@ -36,7 +36,6 @@ def DictSet(Res: bool = False, Book: bool = False) -> bool:
         print(DictBook, Dict); return True
 
     return False
-
 
 # def speak(text):
 #     from CHOICEassistance.Curyassistant.speaker.modules.Speaker import Speaker
@@ -60,29 +59,9 @@ def speak(text):
     engine.say(text)
     engine.runAndWait()
 
-def Saver(one=False):
-    with open(f'{os.getcwd()}/speaker/files/2Key.txt', 'w') as e:
-        e.write('011' if one else '001')
-
-def Recognizer():
-    try:
-        r = sr.Recognizer()
-        with sr.Microphone() as source:
-            print('Listening....'); mp.Process(target=Saver, args=(True, )).start()
-            # r.pause_threshold = 1
-            audio = r.listen(source, timeout=7)
-            print('Recognizing...'); mp.Process(target=Saver, args=(False, )).start()
-            query = r.recognize_google(audio); print(query)
-            return query
-    except Exception as e:
-        mp.Process(target=Saver, args=(False,)).start()
-        # speak("Sorry I can get it")
-        print(e)
-        return Recognizer()
-
 def FullManagement():
-    query = Recognizer()
 
+    query = _RecManaging().Recognizer()
     if 'at' in query.lower().split() or 'instagram' in query.lower().split():
         index = (query.index('at') if query.index('at') is not None else query.index('instagram'))
         ReachOut(query.split()[index + 1])
@@ -92,7 +71,7 @@ def FullManagement():
 
         speak('Are you sure that')
         while True:
-            guessed = Recognizer()
+            guessed = _RecManaging().Recognizer()
             if guessed.lower() == 'yes':
                 if 'shut down' in query.lower(): (speak("Ok I am going to shut down the PC"),
                     os.system("shutdown /s /t 1"))
@@ -136,6 +115,7 @@ def FullManagement():
                     Looper()
                 except Exception:
                     speak("Something went wrong Do you wanna repeat request")
+
                     @LooperGain
                     def Waiter(recognisedText: Optional[str]):
                         if 'yeas' in recognisedText or 'yeah' in recognisedText:
@@ -164,6 +144,12 @@ def FullManagement():
                 else:
                     speak("The List is emtpy. Please you shall begin with new question there")
                     DictSet(Res=True)
+        elif 'podcast' in query.lower() and 'open' in query.lower():
+            pass
+
+        elif 'run' in query.lower() and 'music' in query.lower():
+            speak("Ok, please waite a few second")
+
         else:
 
             if Dict['next'] not in ['Book']:
@@ -196,7 +182,7 @@ def FullManagement():
 def LooperGain(method):
     def pox(*args, **kwargs):
         while True:
-            rec = Recognizer()
+            rec = _RecManaging().Recognizer()
             elem = method(rec, *args, **kwargs)
             if elem == False:
                 speak("Ok I brake")
@@ -252,6 +238,7 @@ def IterForWiki(text: str = None):
                 yield wikipedia.page(elems).summary
             except Exception as e: print(repr(e)); yield "Error"
     else:
+
         speak(f"Wikipedia can not hold any info about {text} Do you want to search in google? "+
               f"if yes say ok if not say no")
 
@@ -269,6 +256,7 @@ def IterForWiki(text: str = None):
 
     DictRes['DictList'] = DictFull  # for ownership
 
+
 def main(conn: Optional = None, killer: mp.Event = None):
     speak("Hello user, I am a virtual assistant Curie")
     while True:
@@ -278,7 +266,6 @@ def main(conn: Optional = None, killer: mp.Event = None):
             if killer.is_set():
                 speak("Bye Bye see you later Boss")
                 break
-
 
 if __name__ == "__main__":
     main()
