@@ -92,7 +92,7 @@ def MainWidgetStyle(main):
         """
     )
 
-def main(*args):
+def main(*args, **kwargs):
     print(os.getcwd())
     app = QtWidgets.QApplication([])
     widget = MyWidget(); MainWidgetStyle(widget)

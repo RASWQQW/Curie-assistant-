@@ -126,6 +126,7 @@ def FullManagement():
             speak("ok I start to find it")
             BookManager(BookName, Author)
 
+        #for ending flow of wiki spelling
         elif 'switch' in query.lower():
             print("OK")
             FlowBroker()
@@ -149,6 +150,10 @@ def FullManagement():
 
         elif 'run' in query.lower() and 'music' in query.lower():
             speak("Ok, please waite a few second")
+            from CHOICEassistance.Curie.Curyassistant.speaker.methods import LookFor
+
+            LookFor(saveLast=True).Seeker()
+            speak("I just now turn on a music")
 
         else:
 
