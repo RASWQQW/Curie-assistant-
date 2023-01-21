@@ -1,5 +1,4 @@
 import os
-import webbrowser
 from typing import Optional
 
 import pyttsx3
@@ -9,7 +8,6 @@ from Recognizer import _RecManaging
 from CHOICEassistance.Curie.Curyassistant.speaker.config import paths
 from CHOICEassistance.Curie.Curyassistant.tools.methods.methods import OpenOf
 from choice.bot.search.googleser import Googlesearch
-import typing
 import threading
 import subprocess
 from CHOICEassistance.Curie.Curyassistant.managment.Book import Finder
@@ -18,7 +16,6 @@ from googletrans import Translator
 from choice.bot.nlp.words import vectorize_func
 from functools import cache
 from CHOICEassistance.Curie.Curyassistant.speaker.modules.Collector.PPLEInfocatcher import ReachOut
-from browser_history.browsers import Chrome
 
 global DictRes; global DictBook; global Dict; Dict = {'next': ''}
 
@@ -150,7 +147,7 @@ def FullManagement():
 
         elif 'run' in query.lower() and 'music' in query.lower():
             speak("Ok, please waite a few second")
-            from CHOICEassistance.Curie.Curyassistant.speaker.methods import LookFor
+            from CHOICEassistance.Curie.Curyassistant.speaker.methods._ytmg import LookFor
 
             LookFor(saveLast=True).Seeker()
             speak("I just now turn on a music")
