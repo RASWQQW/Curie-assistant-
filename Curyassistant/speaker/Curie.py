@@ -145,9 +145,9 @@ def FullManagement():
         elif 'podcast' in query.lower() and 'open' in query.lower():
             pass
 
-        elif 'run' in query.lower() and 'music' in query.lower():
+        elif 'play' in query.lower() and 'music' in query.lower():
             speak("Ok, please waite a few second")
-            from CHOICEassistance.Curie.Curyassistant.speaker.methods._ytmg import LookFor
+            from CHOICEassistance.Curie.Curyassistant.speaker.methods.Spec.CurireMusic._ytmg import LookFor
 
             LookFor(saveLast=True).Seeker()
             speak("I just now turn on a music")

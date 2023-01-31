@@ -5,7 +5,7 @@ import threading
 import time
 import random
 from multiprocessing import Process
-from typing import Optional, Union
+from typing import Optional, Union, List
 
 import bs4
 import pytube
@@ -89,7 +89,6 @@ import wikipedia
 #
 # if __name__ == "__main__":
 #     main()
-
 
 
 # def sups():
@@ -552,42 +551,318 @@ from browser_history.browsers import Chrome
 # print(Solution().findSubsequences([4, 6, 7, 7]))
 
 
+# class Solution(object):
+#     def intToRoman(self, num):
+#
+#         _dict = {1000: "M", 500: "D", 100: "C", 50: "L", 10: "X", 5: "V", 1: "I"}
+#         # print(dict(reversed(list(_dict.items()))))
+#
+#         _digitLen = len(str(num))
+#         num = str(num)[::-1]
+#         dar = 1
+#         text = ''
+#         for elem in str(num):
+#             elem = int(elem) * dar
+#             for key, value in _dict.items():
+#
+#                 if int(elem) == key:
+#                     text+= value; break
+#
+#                 elif int(elem) % key == 0:
+#                     for _ in range(int(elem / dar)):
+#                         text+=value
+#                     break
+#
+#                 elif 3 * dar >= int(elem) % key > 0 and int(elem) % key != elem:
+#                     for ss in range(int(int(elem) % key / dar)):
+#                         text+=_dict[dar]
+#                     text += value
+#                     break
+#
+#                 elif int(elem) + dar == key:
+#                     text+=value+_dict[dar]; break
+#             dar *= 10
+#
+#         return text[::-1]
+#
+#
+# print(Solution().intToRoman(3435))
+#
+# "MCMXCIV"
 
-class Solution(object):
-    def intToRoman(self, num):
 
-        _dict = {1000: "M", 500: "D", 100: "C", 50: "L", 10: "X", 5: "V", 1: "I"}
-        # print(dict(reversed(list(_dict.items()))))
-
-        _digitLen = len(str(num))
-        num = str(num)[::-1]
-        dar = 1
-        text = ''
-        for elem in str(num):
-            elem = int(elem) * dar
-            for key, value in _dict.items():
-
-                if int(elem) == key:
-                    text+= value; break
-
-                elif int(elem) % key == 0:
-                    for _ in range(int(elem / dar)):
-                        text+=value
-                    break
-
-                elif 3 * dar >= int(elem) % key > 0 and int(elem) % key != elem:
-                    for ss in range(int(int(elem) % key / dar)):
-                        text+=_dict[dar]
-                    text += value
-                    break
-
-                elif int(elem) + dar == key:
-                    text+=value+_dict[dar]; break
-            dar *= 10
-
-        return text[::-1]
+# from itertools import permutations, product, combinations
+#
+# _dict = [4,6,7,7]
+# _dictSS = []
+# for amount in range(2, len(_dict)):
+#     sos = list(combinations(_dict, amount))
+#     _dictSS += sos
+#
+# print(_dictSS)
+# _dict = _dictSS
+#
+# _dictIS = []
+#
+# for i in range(len(_dict)):
+#     if list(_dict[i]) == sorted(_dict[i]):
+#         _dictIS.append(list(_dict[i]))
+# print(_dictIS)
 
 
-print(Solution().intToRoman(3435))
+from itertools import combinations
 
-"MCMXCIV"
+from pytube import YouTube
+
+# class Solution:
+#     def partition(self, s: str):
+#         _dictOf = list(s)
+#         _dictOn = [_dictOf]
+#
+#         for _esess in range(len(_dictOf)):
+#             # print(_dictOf[_esess])
+#             sickd = []
+#             for es in range(_esess+1, len(_dictOf)):
+#                 print('s', _dictOf[_esess: es+1], _esess, es); sos=''
+#                 for sor in _dictOf[_esess: es+1]:
+#                     sos+=sor
+#                 if sos == sos[::-1]:
+#                     if sos:
+#                         sickd.append(sos)
+#                 else:
+#                     print('ss', _dictOf[es])
+#                     if _dictOf[es-1] != _dictOf[es-1] and _dictOf[es] != _dictOf[es+1]:
+#                         sickd.append(_dictOf[es-1])
+#
+#             if sickd:
+#                 _dictOn += [sickd]
+#
+#         print(_dictOn)
+#
+# Solution().partition("aab")
+
+
+# class Foo:
+#     def SaveIn(self, func):
+#         def wrapper(*args, **kwargs):
+#             print("ss")
+#             elem = func(*args, **kwargs); print(elem)
+#         return wrapper
+#
+# class Bar(object):
+#     foo = Foo()
+#
+#     @foo.SaveIn
+#     def func(self):
+#         return 'alma'
+#
+# Bar().func()
+
+# print(list)
+
+# _dictOnYouTube = [_elemOn.find_element(by='class',
+#                                        value='yt-simple-endpoint style-scope ytd-playlist-renderer')
+#                   .get_attribute('href') for _elemOn in videos]
+
+#
+# elem = requests.get('https://open.spotify.com/track/4iJyoBOLtHqaGxP12qzhQI')
+#
+# elem = bs4.BeautifulSoup(elem.text, 'lxml')
+# finder = elem.find('title')
+# elem = finder.text[:finder.text.rindex('-')]
+# print(elem)
+# _DictOFRes = pytube.Search(elem).results[0].watch_url
+# print(_DictOFRes)
+
+
+# class Solution:
+#     def productExceptSelf(self, nums: List[int]) -> List[int]:
+#         _dictOff = []
+#         for elem in nums:
+#             _dict = nums.copy(); _dict.remove(elem); adds = 1
+#             _dictOff.append(sum(_dict, key=lambda x:x))
+#
+#         print(_dictOff)
+#
+# Solution().productExceptSelf([-1,1,0,-3,3])
+
+
+# class Solution:
+#     def findJudge(self, n: int, trust: List[List[int]]) -> int:
+#         _dict = {}
+#         _dictofTr = [iis[0] for iis in trust]
+#
+#         for elent in trust:
+#             if elent[1] not in _dictofTr:
+#                 if elent[1] in _dict:
+#                     _dict[elent[1]] += 1
+#                 else:
+#                     _dict[elent[1]] = 1
+#
+#         if len(_dict) == 0: return -1
+#         elif len(_dict) == 1: return list(_dict.keys())[0]
+#         else: return max(_dict, key=_dict.get)
+
+
+# class Solution:
+#     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+#         _dict = sorted(nums1 + nums2)
+#
+#         if len(_dict) % 2 == 1:
+#             return float(_dict[int(len(_dict) // 2)])
+#         else:
+#             return (_dict[len(_dict) // 2] + _dict[(len(_dict) // 2) -1]) / 2
+#
+#
+# print(Solution().findMedianSortedArrays([1, 2], [3, 4]))
+
+
+# class Solution:
+#     def isIsomorphic(self, s: str, t: str) -> bool:
+#         if len(s) != len(t):
+#             return False
+#
+#         def runner(ss: str):
+#             _box = {}
+#             for elem in enumerate(ss):
+#                 if elem[1] not in _box:
+#                     _box[elem[1]] = [elem[0]]
+#                 else:
+#                     _box[elem[1]] += [elem[0]]
+#             return list(_box.values())
+#
+#         return runner(s) == runner(t)
+
+
+# s = "title"
+# t = "paper"
+#
+# ss = {1: 2, 3: 4}
+#
+# # print(ss.values())
+#
+# print(Solution().isIsomorphic(s, t))
+
+# class Solution:
+#     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+#
+#         def Definding(isFrom, price, path, tos):
+#             _lost = []
+#             for elem in flights:
+#                 if elem[0] == isFrom[1]:
+#                     if elem[1] not in path:
+#                         path += [elem[0]]; price += elem[2]
+#                         if elem[1] == dst:
+#                             return [price, path]
+#                         else:
+#                             tos += "-"
+#                             _lost +=[Definding(isFrom=elem, price=price, path=path, tos=tos)]
+#                             tos = tos[:-1]
+#                         path = [isFrom[0]]; price = isFrom[2]
+#
+#             def resof(typeIS):
+#                 if type(typeIS): return typeIS
+#                 else: return resof(typeIS[0])
+#             return resof(_lost)
+#
+#         sumPrice = []
+#         for once in flights:
+#             if once[0] == src:
+#                 if once[1] == dst: elem = [once[2], [src]]
+#                 else: elem = Definding(once, once[2], path=[once[0]], tos=".")
+#                 if elem is not False: sumPrice += [elem]
+#
+#         if len(sumPrice) < 1: return -1
+#
+#         _min = []
+#         for _elentIs in sumPrice:
+#             if len(_elentIs[1]) <= k+1: _min +=[_elentIs[0]]
+#         return _min[0] if len(_min) > 1 else min(_min)
+
+
+
+# class Solution:
+#   def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+#
+#     def Fork(elem, path, price):
+#         for eles in flights:
+#             if eles[0] == elem[0] and eles[0] not in path:
+#                 path += eles[0]; price +=eles[2]
+#                 return eles, price, path
+#
+#     for elem in flights:
+#         if elem[0] == src:
+#             elem = Fork(elem, [elem[0]], elem[2])
+#             while elem:
+#                 elem = Fork(elem[0], elem[1], elem[2])
+#
+#
+#
+# print(Solution().findCheapestPrice(10, [[3,4,4],[2,5,6],[4,7,10],[9,6,5],[7,4,4],[6,2,10]
+#     ,[6,8,6],[7,9,4],[1,5,4],[1,0,4],[9,7,3],[7,0,5],[6,5,8],[1,7,6]
+#     ,[4,0,9],[5,9,1],[8,7,3],[1,2,6],[4,1,5],[5,2,4],[1,9,1],[7,8,10],[0,4,2],[7,2,8]], 6, 0, 7))
+
+
+# ["aria-label"]
+import multiprocessing as mp
+import numpy as np
+
+
+
+
+
+
+def divider():
+    def oppa():
+        return random.randint(1, 10)
+
+    fork, list_ = [], [oppa() for _ in range(12)]
+    print(list_)
+
+    divide = 3; tot = (len(list_) // divide)
+    countSos = tot if tot == len(list_) / divide else tot + 1
+    sumIs = countSos
+
+    for _ in range(divide):
+        _gettingElement = list_[sumIs - countSos:sumIs]
+        if _gettingElement:
+            fork += [list_[sumIs - countSos:sumIs]]
+            sumIs += countSos
+        else:
+            break
+    print(fork, "\n\n"); return fork
+
+
+
+def alma(elem: int, dicOfList: list, queue: mp.Queue):
+    for el in dicOfList:
+        print(el)
+        time.sleep(elem)
+
+    setter = queue.get()
+    setter["elem"] = f"{elem}{sum(dicOfList)}"
+    queue.put(setter)
+    print("isisOF", queue)
+
+
+if __name__ == "__main__":
+
+    fork = divider()
+    listOfGetting = {"elem": None}
+
+
+    processes: list[dict] = []
+    for pr in range(3):
+        manager = mp.Queue()
+        manager.put(listOfGetting)
+
+        pr_is = mp.Process(target=alma, args=(pr, fork[pr], manager))
+        processes.append({"pr": pr_is, "mn": manager})
+        pr_is.start()
+
+    print(processes)
+    for isis in processes:
+        isis["pr"].join()
+        print("All", isis["mn"].get())
+        isis["pr"].kill()
+

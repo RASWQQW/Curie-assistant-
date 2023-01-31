@@ -9,16 +9,19 @@ from choice.bot.basic.dp_step.peewee_Orm_postgre.models.models import PeeweeBase
 class Connection:
     connector = PostgresqlDatabase(
         port=5432,
-        database=cfg.dp_name,
-        user=cfg.user,
-        password=cfg.password,
-        host=cfg.host,
+        database='Curie',
+        user='postgres',
+        password='123',
+        host='localhost',
         isolation_level=ISOLATION_LEVEL_SERIALIZABLE)
 
 
 
 class integration(Model):
-    pass
+    setup = TextField()
+    date = DateTimeField(default=datetime.datetime.now())
+    login = TextField()
+    password = TextField
 
     class Meta:
         database = Connection.connector
@@ -37,6 +40,14 @@ class User(Model):
         database = Connection.connector
         db_table = 'User'
 
+class MusicJanres(Model):
+    User = ForeignKeyField(model=User)
+    name = TextField()
+    createdDate = DateTimeField(default=datetime.datetime.now)
+
+    class Meta:
+        database = Connection.connector
+        db_table = 'MusicJanres'
 
 class YouTubeManagement(Model):
     User = ForeignKeyField(model=User)
@@ -48,4 +59,11 @@ class YouTubeManagement(Model):
     class Meta:
         database = Connection.connector
         db_table = 'YouTubeMng'
+
+def Create_Table():
+    Connection.connector.connect()
+    Connection.connector.create_tables([MusicJanres])
+
+
+
 
