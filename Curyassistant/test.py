@@ -804,65 +804,124 @@ from pytube import YouTube
 
 
 # ["aria-label"]
-import multiprocessing as mp
-import numpy as np
+# import multiprocessing as mp
+# import numpy as np
+#
+#
+#
+#
+#
+#
+# def divider():
+#     def oppa():
+#         return random.randint(1, 10)
+#
+#     fork, list_ = [], [oppa() for _ in range(12)]
+#     print(list_)
+#
+#     divide = 3; tot = (len(list_) // divide)
+#     countSos = tot if tot == len(list_) / divide else tot + 1
+#     sumIs = countSos
+#
+#     for _ in range(divide):
+#         _gettingElement = list_[sumIs - countSos:sumIs]
+#         if _gettingElement:
+#             fork += [list_[sumIs - countSos:sumIs]]
+#             sumIs += countSos
+#         else:
+#             break
+#     print(fork, "\n\n"); return fork
+#
+#
+#
+# def alma(elem: int, dicOfList: list, queue: mp.Queue):
+#     for el in dicOfList:
+#         print(el)
+#         time.sleep(elem)
+#
+#     setter = queue.get()
+#     setter["elem"] = f"{elem}{sum(dicOfList)}"
+#     queue.put(setter)
+#     print("isisOF", queue)
+#
+#
+# if __name__ == "__main__":
+#
+#     fork = divider()
+#     listOfGetting = {"elem": None}
+#
+#
+#     processes: list[dict] = []
+#     for pr in range(3):
+#         manager = mp.Queue()
+#         manager.put(listOfGetting)
+#
+#         pr_is = mp.Process(target=alma, args=(pr, fork[pr], manager))
+#         processes.append({"pr": pr_is, "mn": manager})
+#         pr_is.start()
+#
+#     print(processes)
+#     for isis in processes:
+#         isis["pr"].join()
+#         print("All", isis["mn"].get())
+#         isis["pr"].kill()
+
+# from typing import NewType
+#
+# listOF: List[int | str] = [1, 12]
+#
+# Linker = NewType("Linker", int)
+# to = Linker(12)
+#
+# print(listOF, to, to.__class__)
+#
+# def okko(link: ):
+#     print("is", type(link))
+#
+# okko(12)
+
+# class Occo:
+#     def __init__(self):
+#         pass
+#
+# print(Occo.__name__)
+#
+#
+# class Link:
+#     def __init__(self, val, next):
+#         self.val = val
+#         self.next = next
+#
+#
+# alm = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# oc = Link(val=alm[0], next=[1])
+#
+# for elem in range(len(alm)-1):
+#     oc = Link(val=alm[elem], next=oc)
+#
+# for elem in range(len(alm)):
+#     print(oc.val)
+#     oc = oc.next
 
 
-
-
-
-
-def divider():
-    def oppa():
-        return random.randint(1, 10)
-
-    fork, list_ = [], [oppa() for _ in range(12)]
-    print(list_)
-
-    divide = 3; tot = (len(list_) // divide)
-    countSos = tot if tot == len(list_) / divide else tot + 1
-    sumIs = countSos
-
-    for _ in range(divide):
-        _gettingElement = list_[sumIs - countSos:sumIs]
-        if _gettingElement:
-            fork += [list_[sumIs - countSos:sumIs]]
-            sumIs += countSos
-        else:
-            break
-    print(fork, "\n\n"); return fork
-
-
-
-def alma(elem: int, dicOfList: list, queue: mp.Queue):
-    for el in dicOfList:
-        print(el)
-        time.sleep(elem)
-
-    setter = queue.get()
-    setter["elem"] = f"{elem}{sum(dicOfList)}"
-    queue.put(setter)
-    print("isisOF", queue)
-
-
-if __name__ == "__main__":
-
-    fork = divider()
-    listOfGetting = {"elem": None}
-
-
-    processes: list[dict] = []
-    for pr in range(3):
-        manager = mp.Queue()
-        manager.put(listOfGetting)
-
-        pr_is = mp.Process(target=alma, args=(pr, fork[pr], manager))
-        processes.append({"pr": pr_is, "mn": manager})
-        pr_is.start()
-
-    print(processes)
-    for isis in processes:
-        isis["pr"].join()
-        print("All", isis["mn"].get())
-        isis["pr"].kill()
+# def Cocco():
+#     elem = list("abcdefghijklmnopqrstuvwxyz")
+#     words = ["apple","app"]
+#     _list = []
+#
+#     for word in enumerate(words):
+#         for nexts in enumerate(words[word[0]+1:]):
+#             for char in word[1]:
+#                 _sum = 0
+#                 for chars in enumerate(nexts[1]):
+#                     print(chars[1], char)
+#                     if elem.index(char) > elem.index(chars[1]) or char == chars[1]:
+#                         _sum += 1
+#                 print(_sum, len(nexts[1]))
+#                 if _sum >= len(nexts[1]):
+#                     return False
+#     else:
+#         return True
+#
+# print(Cocco())
 

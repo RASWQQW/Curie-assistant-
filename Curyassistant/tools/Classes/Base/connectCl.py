@@ -17,7 +17,7 @@ class Connection:
 
 
 
-class integration(Model):
+class Integration(Model):
     setup = TextField()
     date = DateTimeField(default=datetime.datetime.now())
     login = TextField()
@@ -27,6 +27,24 @@ class integration(Model):
         database = Connection.connector
         db_table = 'integration'
 
+class UserVibe(Model):
+    user_id = IntegerField()
+    vibe_id = IntegerField()
+
+    class Meta:
+        database = Connection.connector
+        db_table = "UserVibes"
+
+class MusicVibes(Model):
+    name = TextField()
+    status = IntegerField(default=1)  # it's been between 1 and 5
+    tags = TextField()  # it must be as dict you know
+    subscribers = BigIntegerField()
+    # and so on
+
+    class Meta:
+        database = Connection.connector
+        db_table = "MusicVibes"
 
 class User(Model):
     userId = TextField()
@@ -34,11 +52,12 @@ class User(Model):
     password = TextField()
     joinedDate = DateTimeField(default=datetime.datetime.now, null=True)
     integration = BooleanField(null=True)
-    integrationId = ForeignKeyField(model=integration, null=True)
+    integrationId = ForeignKeyField(model=Integration, null=True)
 
     class Meta:
         database = Connection.connector
         db_table = 'User'
+
 
 class MusicJanres(Model):
     User = ForeignKeyField(model=User)

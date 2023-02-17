@@ -2,7 +2,7 @@ import multiprocessing as mp
 import re
 from typing import Optional
 from pytube import YouTube
-from CHOICEassistance.Curie.Curyassistant.speaker.methods.Spec.CurireMusic.items.serivce_genreProp import GenreProp
+from CHOICEassistance.Curie.Curyassistant.speaker.methods.Spec.CurieMusic.items.serivce_genreProp import GenreProp
 
 
 class DefinerOF(object):
@@ -13,11 +13,9 @@ class DefinerOF(object):
                  LinkList: Optional[list | None] = None
                  ):
 
-
         self.UserGenre = userGenre
         self.LinkList = LinkList
         self.fork = None
-
 
 
     def ForDividing(self, list_: list, flow_amount: int = 5):  # STEP 1

@@ -4,18 +4,21 @@ from typing import Optional
 import pyttsx3
 import wikipedia
 from pyqiwip2p.AioQiwip2p import requests
-from Recognizer import _RecManaging
+from CHOICEassistance.Curie.Curyassistant.speaker.Recognizer import _RecManaging
 from CHOICEassistance.Curie.Curyassistant.speaker.config import paths
 from CHOICEassistance.Curie.Curyassistant.tools.methods.methods import OpenOf
 from choice.bot.search.googleser import Googlesearch
 import threading
 import subprocess
-from CHOICEassistance.Curie.Curyassistant.managment.Book import Finder
 import multiprocessing as mp
 from googletrans import Translator
-from choice.bot.nlp.words import vectorize_func
 from functools import cache
 from CHOICEassistance.Curie.Curyassistant.speaker.modules.Collector.PPLEInfocatcher import ReachOut
+
+
+from CHOICEassistance.Curie.Curyassistant.managment.Book import Finder     # //////////////////
+from choice.bot.nlp.words import vectorize_func        # ////////////////
+from CHOICEassistance.Curie.Curyassistant.speaker.methods.Spec.CurieMusic._ytmg import LookFor  # /////////////
 
 global DictRes; global DictBook; global Dict; Dict = {'next': ''}
 
@@ -90,14 +93,6 @@ def FullManagement():
 
         elif 'book' in query.lower():
             source = query.split(); global BookName, Author
-            for i in range(len(source)):
-                try:
-                    if source[i] in ['name', 'named', 'as', 'book']:
-                        BookName = source[i + 1] + " " + source[i + 2] if source[i + 2] else ''
-
-                    if source[i] in ['by', 'writer', 'author']:
-                        Author = source[i + 1] + " " + source[i + 2] if source[i + 2] else ''
-                except Exception as e: speak('You miss some words, please try to next time')
 
             def BookManager(BookName, Author):
                 try:
@@ -120,8 +115,17 @@ def FullManagement():
                         elif 'no' in recognisedText or 'stop' in recognisedText:
                             return False
 
-            speak("ok I start to find it")
-            BookManager(BookName, Author)
+            for i in range(len(source)):
+                try:
+                    if source[i] in ['name', 'named', 'as', 'book']:
+                        BookName = source[i + 1] + " " + source[i + 2] if source[i + 2] else ''
+
+                    if source[i] in ['by', 'writer', 'author']:
+                        Author = source[i + 1] + " " + source[i + 2] if source[i + 2] else ''
+                except Exception as e: speak('You miss some words, please try to next time'); break
+            else:
+                speak("ok I start to find it")
+                BookManager(BookName, Author)
 
         #for ending flow of wiki spelling
         elif 'switch' in query.lower():
@@ -142,12 +146,12 @@ def FullManagement():
                 else:
                     speak("The List is emtpy. Please you shall begin with new question there")
                     DictSet(Res=True)
+
         elif 'podcast' in query.lower() and 'open' in query.lower():
             pass
 
         elif 'play' in query.lower() and 'music' in query.lower():
             speak("Ok, please waite a few second")
-            from CHOICEassistance.Curie.Curyassistant.speaker.methods.Spec.CurireMusic._ytmg import LookFor
 
             LookFor(saveLast=True).Seeker()
             speak("I just now turn on a music")

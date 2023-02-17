@@ -9,9 +9,8 @@ import sys
 from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import QLabel
 from CHOICEassistance.Curie.Curyassistant.speaker import Curie
-import multiprocessing as mc
-
 from CHOICEassistance.Curie.Curyassistant.speaker.Curie import speak
+import multiprocessing as mc
 
 global PRList
 PRList = [None, None, None, None]
@@ -24,8 +23,7 @@ class MyWidget(QtWidgets.QWidget):
         while True:
             try:
                 time.sleep(1)
-                with open(f'{self.Values()}2Key.txt', 'r') as f:
-                    olm = f.read()
+                with open(f'{self.Values()}2Key.txt', 'r') as f: olm = f.read()
                 if olm == '011': self.textForListen.setText('Listening...')
                 if olm == '001': self.textForListen.setText("")
 
@@ -79,7 +77,7 @@ def SpeakerRunner():
     killer = mc.Event()
     conn1, conn2 = mc.Pipe()
     thread = mc.Process(target=Curie.main, args=(conn1, killer)); thread.start()
-    PRList[0] = killer; PRList[1] = thread; PRList[3] = conn2
+    PRList[0] = killer; PRList[1]: mc.Process = thread; PRList[3] = conn2
 
 def MainWidgetStyle(main):
     # for set the relative style
@@ -100,12 +98,15 @@ def main(*args, **kwargs):
     widget.resize(350, 500)
     widget.setWindowTitle("Choice")
     widget.move(600, 150)
-
     widget.setWindowIcon(QtGui.QIcon(f'{MyWidget().path}icon.ico'))
     widget.show()
 
     SpeakerRunner()   # speaker thread function
-    sys.exit((app.exec(), PRList[1].kill(), print("yes")))
+    _active_proccesses = mc.active_children()
+
+    sys.exit((app.exec(),  # to stop app exact desktop app
+              PRList[1].kill(), [process.terminate() for process in _active_proccesses],  # flows
+              print(_active_proccesses)))  # for displaying all rest of flows
 
 if __name__ == "__main__":
     main()

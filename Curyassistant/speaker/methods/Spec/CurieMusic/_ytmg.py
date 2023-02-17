@@ -13,9 +13,8 @@ from pytube import YouTube
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
-from CHOICEassistance.Curie.Curyassistant.speaker.methods.Spec.CurireMusic.items.serivce_definder import DefinerOF
-from CHOICEassistance.Curie.Curyassistant.speaker.methods.Spec.CurireMusic.items.serivce_genreProp import GenreProp
-from CHOICEassistance.Curie.Curyassistant.speaker.methods.Spec.CurireMusic.items.service_items import LogManager
+from CHOICEassistance.Curie.Curyassistant.speaker.methods.Spec.CurieMusic.items.serivce_definder import DefinerOF
+from CHOICEassistance.Curie.Curyassistant.speaker.methods.Spec.CurieMusic.items.service_items import LogManager
 
 from CHOICEassistance.Curie.Curyassistant.speaker.methods.Spec.objects.objects import link
 from CHOICEassistance.Curie.Curyassistant.tools.methods import methods
@@ -81,18 +80,48 @@ class LookFor(object):
         self.mixing = mixing
         self.mainJanres = genre
         self.vibe = vibe
+        self.current_path = self.definePath()
+
+    def definePath(self):
+
+        """New definer of local path for with open() elements """
+        local_path = ["speaker", "methods", "Spec", "CurieMusic"]
+        if os.path.basename(os.getcwd()) == "Curyassistant":
+            return os.getcwd() + "\\" + "\\".join(local_path) + "\\"
+        else:
+            path = os.getcwd()
+            for el in range(len(local_path)-1):
+                if os.path.basename(path) == local_path[el]:
+                    path +=f"\\{local_path[el+1]}"
+            return path + "\\"
 
     def editor(self, mix: bool):
         if mix: self.mixing = True
         # all on that jazz
 
-    def PlaylistsOfVibe(self):
+    def PlaylistsOfVibe(self, vibeName: str) -> tuple[bool, bool]:
         """ TODO
+
         For assembling whole similar music by separating his specific species such as
         slowed, phonk, anime, sad, romantic, canon, etc.
         They all would be introduced to user as unique unrepeated playlists
 
+
+        No No is actually gone ad definer taste of user and set say him about full video
+
         """
+
+        if self.userId:
+            vibes = MusicVibes.select().join(UserVibe)\
+                .where(MusicVibes.id == UserVibe.vibe_id and UserVibe.user_id == self.userId
+                       and MusicVibes.name == vibeName)
+            if vibes:
+                if len(vibes) and vibes[0].status >= 3:
+                    return True, True  # it returns tuple each is True if vibe is quite popular
+                else:
+                    return True, False
+            else:
+                return False, False
 
     def PerferedJangres(self):
         """TODO
@@ -119,8 +148,9 @@ class LookFor(object):
         else: return True, userId
 
     def userHistSaver(self, linkOf: str):
+
         userId = str(self.userId[1])
-        with open('historyData.json', 'r') as history:
+        with open(f'{self.current_path}historyData.json', 'r') as history:
             dict = json.load(history)
         print(dict, userId)
         if userId in dict:
@@ -129,7 +159,7 @@ class LookFor(object):
             else: return True
         else: dict[userId] = [str(linkOf)]
 
-        with open('historyData.json', 'w') as history:
+        with open(f'{self.current_path}historyData.json', 'w') as history:
             json.dump(dict, history, indent=4, separators=(',', ': '))
 
         return False
@@ -193,7 +223,9 @@ class LookFor(object):
     @Fon.rooser
     @cache
     def Seeker(self) -> Optional[Any]:  # dict, str[link | int]
-        listCode = []
+
+        """ TODO These function not available use in web but it worth get api from site just add these function
+        Seeker. It is such good solution on my own """
 
         elems = Chrome().fetch_history(sort=False, desc=False).histories
 

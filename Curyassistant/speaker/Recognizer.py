@@ -12,7 +12,7 @@ class _RecManaging(object):
         pass
 
     def Saver(self, one=False):
-        with open(f'{os.getcwd()}/files/2Key.txt', 'w') as e:
+        with open(f'{os.getcwd()}\\speaker\\files\\2Key.txt', 'w') as e:
             e.write('011' if one else '001')
 
     def Recognizer(self):
